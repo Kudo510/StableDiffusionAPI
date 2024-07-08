@@ -3,6 +3,7 @@ import io
 from fastapi import FastAPI
 from fastapi.responses import FileResponse, StreamingResponse
 from pydantic import BaseModel
+import uvicorn
 
 from ml import obtain_image
 
@@ -13,16 +14,15 @@ app = FastAPI()
 def read_root():
     return {"Hello": "World"}
 
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int):
-    return {"item_id": item_id}
-
-
 class Item(BaseModel):
     name: str
     price: float
     tags: list[str] = []
+
+    
+@app.get("/items/{item_id}")
+def read_item(item_id: int):
+    return {"item_id": item_id}
 
 
 @app.post("/items/")
@@ -30,7 +30,7 @@ def create_item(item: Item):
     return item
 
 
-@app.get("/generate")
+@app.post("/generate")
 def generate_image(
     prompt: str,
     *,
@@ -66,3 +66,12 @@ def generate_image_memory(
     image.save(memory_stream, format="PNG")
     memory_stream.seek(0)
     return StreamingResponse(memory_stream, media_type="image/png")
+
+
+def main():
+    # uvicorn.run("service:app", host="0.0.0.0", port=50052)
+    uvicorn.run(app, host="0.0.0.0", port=50056) # app cos app = FastAPI() at line 5
+
+
+if __name__ == '__main__':
+    main()

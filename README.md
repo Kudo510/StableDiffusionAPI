@@ -1,18 +1,52 @@
+# FastAPI Application for Stable Diffusion Model
 
+FastAPI application with docker and Kubernett
 
-<p align = "center" draggable=”false” ><img src="https://user-images.githubusercontent.com/37101144/161836199-fdb0219d-0361-4988-bf26-48b0fad160a3.png" 
-     width="200px"
-     height="auto"/>
-</p>
+## Run 
+To run your app on server, use uvicorn
 
+    uvicorn main:app --reload # Reload to make the server automatically refreshed if the file changes
 
+Then click on the link with /docs like http://127.0.0.1:8000/docs. We get an iterative UI page
 
-# <h1 align="center" id="heading">FastAPI for Stable Diffusion LLMs Demo</h1>
+Test with POST, click on try it out - execute
 
-This repository contains the files to build your very own AI image generation web application! Outlined are the core components of the FastAPI web framework, and application leverage the newly-released Stable Diffusion text-to-image deep learning model.
+Get the Curl command that we could run in terminalas well 
 
-📺 You can checkout the full video [here](https://www.youtube.com/watch?v=_BZGtifh_gw)!
+Other UI can also go for http://127.0.0.1:8000/redoc - which ever docs or redoc is preferred
 
-![Screenshot 2022-12-15 at 11 34 39 AM](https://user-images.githubusercontent.com/37101144/207929696-886ccfe3-6d86-4674-8aca-0844fb795727.png)
+Click on openapi.json - all information about your fastapi server as in json file
 
-![Screenshot 2022-12-15 at 11 35 51 AM](https://user-images.githubusercontent.com/37101144/207929748-afafc036-cbf6-48aa-a7b2-b64d66c32b75.png)
+## Build Docker Image
+
+Build the Docker Image
+
+    docker build -t myimage .
+
+Test on your local
+
+    docker run -p 8000:80 myimage
+
+    Then check on http://localhost:8000/docs
+
+Start the Docker Container¶
+
+    docker run -d --name mycontainer -p 80:80 myimage
+    
+    Now you can go to http://localhost:80/docs
+
+## Push the image to Docker Hub:
+
+    docker login
+    
+    docker push your-username/your-app-name:tag
+
+## To use the uploaded image
+
+    docker pull your-username/your-app-name:tag
+
+    docker run -p 80:80 your-username/your-app-name:tag
+
+## Add __init__.py 
+
+Adding __init__.py file to add modules stable_diffusion_app.ml
