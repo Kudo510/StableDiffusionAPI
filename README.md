@@ -31,7 +31,7 @@ Test on your local
 
 Start the Docker Container¶
 
-    docker run -d --name mycontainer -p 80:80 myimage
+    docker run --name mycontainer -p 8000:8000 myimage
     
     Now you can go to http://localhost:80/docs
 

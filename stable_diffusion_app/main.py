@@ -5,7 +5,7 @@ from fastapi.responses import FileResponse, StreamingResponse
 from pydantic import BaseModel
 import uvicorn
 
-from ml import obtain_image
+from stable_diffusion_app.ml import obtain_image
 
 app = FastAPI()
 
